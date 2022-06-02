@@ -23,12 +23,13 @@ Map<String, dynamic> _$$_RepositoryDataToJson(_$_RepositoryData instance) =>
 _$_RepositoryDataItems _$$_RepositoryDataItemsFromJson(
         Map<String, dynamic> json) =>
     _$_RepositoryDataItems(
-      name: json['name'] as String,
+      full_name: json['full_name'] as String,
       owner:
           RepositoryDataOwner.fromJson(json['owner'] as Map<String, dynamic>),
+      description: json['description'] as String?,
       stargazers_count: json['stargazers_count'] as int,
       watchers_count: json['watchers_count'] as int,
-      language: json['language'] as String,
+      language: json['language'] as String?,
       forks_count: json['forks_count'] as int,
       open_issues_count: json['open_issues_count'] as int,
     );
@@ -36,8 +37,9 @@ _$_RepositoryDataItems _$$_RepositoryDataItemsFromJson(
 Map<String, dynamic> _$$_RepositoryDataItemsToJson(
         _$_RepositoryDataItems instance) =>
     <String, dynamic>{
-      'name': instance.name,
+      'full_name': instance.full_name,
       'owner': instance.owner,
+      'description': instance.description,
       'stargazers_count': instance.stargazers_count,
       'watchers_count': instance.watchers_count,
       'language': instance.language,

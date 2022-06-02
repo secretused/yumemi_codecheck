@@ -120,3 +120,4 @@ app.*.symbols
 
 # myCustom
 !*.gitignore
+.text

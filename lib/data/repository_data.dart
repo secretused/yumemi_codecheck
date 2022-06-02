@@ -18,11 +18,12 @@ class RepositoryData with _$RepositoryData {
 @freezed
 class RepositoryDataItems with _$RepositoryDataItems {
   const factory RepositoryDataItems({
-    required String name,
+    required String full_name,
     required RepositoryDataOwner owner,
+    required String? description,
     required int stargazers_count,
     required int watchers_count,
-    required String language,
+    required String? language,
     required int forks_count,
     required int open_issues_count,
   }) = _RepositoryDataItems;

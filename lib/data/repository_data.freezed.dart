@@ -191,11 +191,12 @@ RepositoryDataItems _$RepositoryDataItemsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$RepositoryDataItems {
-  String get name => throw _privateConstructorUsedError;
+  String get full_name => throw _privateConstructorUsedError;
   RepositoryDataOwner get owner => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
   int get stargazers_count => throw _privateConstructorUsedError;
   int get watchers_count => throw _privateConstructorUsedError;
-  String get language => throw _privateConstructorUsedError;
+  String? get language => throw _privateConstructorUsedError;
   int get forks_count => throw _privateConstructorUsedError;
   int get open_issues_count => throw _privateConstructorUsedError;
 
@@ -211,11 +212,12 @@ abstract class $RepositoryDataItemsCopyWith<$Res> {
           RepositoryDataItems value, $Res Function(RepositoryDataItems) then) =
       _$RepositoryDataItemsCopyWithImpl<$Res>;
   $Res call(
-      {String name,
+      {String full_name,
       RepositoryDataOwner owner,
+      String? description,
       int stargazers_count,
       int watchers_count,
-      String language,
+      String? language,
       int forks_count,
       int open_issues_count});
 
@@ -233,8 +235,9 @@ class _$RepositoryDataItemsCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? name = freezed,
+    Object? full_name = freezed,
     Object? owner = freezed,
+    Object? description = freezed,
     Object? stargazers_count = freezed,
     Object? watchers_count = freezed,
     Object? language = freezed,
@@ -242,14 +245,18 @@ class _$RepositoryDataItemsCopyWithImpl<$Res>
     Object? open_issues_count = freezed,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      full_name: full_name == freezed
+          ? _value.full_name
+          : full_name // ignore: cast_nullable_to_non_nullable
               as String,
       owner: owner == freezed
           ? _value.owner
           : owner // ignore: cast_nullable_to_non_nullable
               as RepositoryDataOwner,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
       stargazers_count: stargazers_count == freezed
           ? _value.stargazers_count
           : stargazers_count // ignore: cast_nullable_to_non_nullable
@@ -261,7 +268,7 @@ class _$RepositoryDataItemsCopyWithImpl<$Res>
       language: language == freezed
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       forks_count: forks_count == freezed
           ? _value.forks_count
           : forks_count // ignore: cast_nullable_to_non_nullable
@@ -289,11 +296,12 @@ abstract class _$$_RepositoryDataItemsCopyWith<$Res>
       __$$_RepositoryDataItemsCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String name,
+      {String full_name,
       RepositoryDataOwner owner,
+      String? description,
       int stargazers_count,
       int watchers_count,
-      String language,
+      String? language,
       int forks_count,
       int open_issues_count});
 
@@ -314,8 +322,9 @@ class __$$_RepositoryDataItemsCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? name = freezed,
+    Object? full_name = freezed,
     Object? owner = freezed,
+    Object? description = freezed,
     Object? stargazers_count = freezed,
     Object? watchers_count = freezed,
     Object? language = freezed,
@@ -323,14 +332,18 @@ class __$$_RepositoryDataItemsCopyWithImpl<$Res>
     Object? open_issues_count = freezed,
   }) {
     return _then(_$_RepositoryDataItems(
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      full_name: full_name == freezed
+          ? _value.full_name
+          : full_name // ignore: cast_nullable_to_non_nullable
               as String,
       owner: owner == freezed
           ? _value.owner
           : owner // ignore: cast_nullable_to_non_nullable
               as RepositoryDataOwner,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
       stargazers_count: stargazers_count == freezed
           ? _value.stargazers_count
           : stargazers_count // ignore: cast_nullable_to_non_nullable
@@ -342,7 +355,7 @@ class __$$_RepositoryDataItemsCopyWithImpl<$Res>
       language: language == freezed
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       forks_count: forks_count == freezed
           ? _value.forks_count
           : forks_count // ignore: cast_nullable_to_non_nullable
@@ -361,8 +374,9 @@ class _$_RepositoryDataItems
     with DiagnosticableTreeMixin
     implements _RepositoryDataItems {
   const _$_RepositoryDataItems(
-      {required this.name,
+      {required this.full_name,
       required this.owner,
+      required this.description,
       required this.stargazers_count,
       required this.watchers_count,
       required this.language,
@@ -373,15 +387,17 @@ class _$_RepositoryDataItems
       _$$_RepositoryDataItemsFromJson(json);
 
   @override
-  final String name;
+  final String full_name;
   @override
   final RepositoryDataOwner owner;
+  @override
+  final String? description;
   @override
   final int stargazers_count;
   @override
   final int watchers_count;
   @override
-  final String language;
+  final String? language;
   @override
   final int forks_count;
   @override
@@ -389,7 +405,7 @@ class _$_RepositoryDataItems
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RepositoryDataItems(name: $name, owner: $owner, stargazers_count: $stargazers_count, watchers_count: $watchers_count, language: $language, forks_count: $forks_count, open_issues_count: $open_issues_count)';
+    return 'RepositoryDataItems(full_name: $full_name, owner: $owner, description: $description, stargazers_count: $stargazers_count, watchers_count: $watchers_count, language: $language, forks_count: $forks_count, open_issues_count: $open_issues_count)';
   }
 
   @override
@@ -397,8 +413,9 @@ class _$_RepositoryDataItems
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'RepositoryDataItems'))
-      ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('full_name', full_name))
       ..add(DiagnosticsProperty('owner', owner))
+      ..add(DiagnosticsProperty('description', description))
       ..add(DiagnosticsProperty('stargazers_count', stargazers_count))
       ..add(DiagnosticsProperty('watchers_count', watchers_count))
       ..add(DiagnosticsProperty('language', language))
@@ -411,8 +428,10 @@ class _$_RepositoryDataItems
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_RepositoryDataItems &&
-            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.full_name, full_name) &&
             const DeepCollectionEquality().equals(other.owner, owner) &&
+            const DeepCollectionEquality()
+                .equals(other.description, description) &&
             const DeepCollectionEquality()
                 .equals(other.stargazers_count, stargazers_count) &&
             const DeepCollectionEquality()
@@ -428,8 +447,9 @@ class _$_RepositoryDataItems
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(full_name),
       const DeepCollectionEquality().hash(owner),
+      const DeepCollectionEquality().hash(description),
       const DeepCollectionEquality().hash(stargazers_count),
       const DeepCollectionEquality().hash(watchers_count),
       const DeepCollectionEquality().hash(language),
@@ -450,11 +470,12 @@ class _$_RepositoryDataItems
 
 abstract class _RepositoryDataItems implements RepositoryDataItems {
   const factory _RepositoryDataItems(
-      {required final String name,
+      {required final String full_name,
       required final RepositoryDataOwner owner,
+      required final String? description,
       required final int stargazers_count,
       required final int watchers_count,
-      required final String language,
+      required final String? language,
       required final int forks_count,
       required final int open_issues_count}) = _$_RepositoryDataItems;
 
@@ -462,15 +483,17 @@ abstract class _RepositoryDataItems implements RepositoryDataItems {
       _$_RepositoryDataItems.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get full_name => throw _privateConstructorUsedError;
   @override
   RepositoryDataOwner get owner => throw _privateConstructorUsedError;
+  @override
+  String? get description => throw _privateConstructorUsedError;
   @override
   int get stargazers_count => throw _privateConstructorUsedError;
   @override
   int get watchers_count => throw _privateConstructorUsedError;
   @override
-  String get language => throw _privateConstructorUsedError;
+  String? get language => throw _privateConstructorUsedError;
   @override
   int get forks_count => throw _privateConstructorUsedError;
   @override
