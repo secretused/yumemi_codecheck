@@ -13,6 +13,8 @@ class RepositoryData with _$RepositoryData {
 
   factory RepositoryData.fromJson(Map<String, dynamic> json) =>
       _$RepositoryDataFromJson(json);
+
+  static const empty = RepositoryData(total_count: 0, items: []);
 }
 
 @freezed
