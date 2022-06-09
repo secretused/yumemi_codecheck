@@ -5,6 +5,19 @@ import 'main_logic.dart';
 
 final _logicProvider = Provider<Logic>((ref) => Logic());
 final _repositoryQueryProvider = StateProvider<String>((ref) => "");
+StateProvider<RepositoryDataItems> _navigationIndexProvider =
+    StateProvider<RepositoryDataItems>(
+  (ref) => const RepositoryDataItems(
+    full_name: "",
+    description: "",
+    stargazers_count: 0,
+    watchers_count: 0,
+    language: "",
+    forks_count: 0,
+    open_issues_count: 0,
+    owner: RepositoryDataOwner(avatar_url: ""),
+  ),
+);
 
 AutoDisposeFutureProviderFamily<RepositoryData, String> _apiFamilyProvider =
     FutureProvider.autoDispose.family<RepositoryData, String>(
@@ -21,19 +34,28 @@ AutoDisposeFutureProviderFamily<RepositoryData, String> _apiFamilyProvider =
 
 class MainPageVM {
   late final WidgetRef _ref;
-  String get repositoryData => _ref.watch(_repositoryQueryProvider);
+  String get repositoryQuery => _ref.watch(_repositoryQueryProvider);
+  RepositoryDataItems get tappedRepository =>
+      _ref.watch(_navigationIndexProvider);
 
-  AsyncValue<RepositoryData> repositoryDataWithFamily(String repositoryData) =>
-      _ref.watch(_apiFamilyProvider(repositoryData));
+  AsyncValue<RepositoryData> repositoryDataWithFamily(String repositoryQuery) =>
+      _ref.watch(_apiFamilyProvider(repositoryQuery));
 
   void setRef(WidgetRef ref) {
-    this._ref = ref;
+    _ref = ref;
   }
 
   // Pageで入力されたValueが入る
-  void onPostalCodeChaged(String repositoryQuery) {
+  void onQueryChaged(String repositoryQuery) {
     _ref
         .read(_repositoryQueryProvider.notifier)
         .update((state) => repositoryQuery);
+  }
+
+  // onTapで選択されたリストのindexを返す
+  void onListTapped(RepositoryDataItems repositoryData) {
+    _ref
+        .read(_navigationIndexProvider.notifier)
+        .update((state) => repositoryData);
   }
 }
