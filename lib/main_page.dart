@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'main_page_vm.dart';
+import 'next_page.dart';
 
 class MainPage extends ConsumerStatefulWidget {
   const MainPage({Key? key, required this.title}) : super(key: key);
@@ -24,7 +25,7 @@ class _MainPageState extends ConsumerState<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    final data = _vm.repositoryDataWithFamily(_vm.repositoryData);
+    final data = _vm.repositoryDataWithFamily(_vm.repositoryQuery);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -52,10 +53,10 @@ class _MainPageState extends ConsumerState<MainPage> {
                   padding: const EdgeInsets.only(right: 8.0),
                   child: ElevatedButton(
                     onPressed: () =>
-                        _vm.onPostalCodeChaged(_queryTextController.text),
+                        _vm.onQueryChaged(_queryTextController.text),
                     child: const Text('検索'),
                   ),
-                )
+                ),
               ],
             ),
             (() {
@@ -67,19 +68,28 @@ class _MainPageState extends ConsumerState<MainPage> {
               }
             })(),
             Expanded(
-              child: _vm.repositoryDataWithFamily(_vm.repositoryData).when(
+              child: _vm.repositoryDataWithFamily(_vm.repositoryQuery).when(
                     data: (data) => ListView.separated(
                       itemCount: data.items.length,
                       itemBuilder: (context, index) => ListTile(
-                        title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(data.items[index].full_name),
-                          ],
-                        ),
-                        subtitle: Text(
-                            data.items[index].description ?? "No Description"),
-                      ),
+                          title: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(data.items[index].full_name),
+                            ],
+                          ),
+                          subtitle: Text(data.items[index].description ??
+                              "No Description"),
+                          onTap: () {
+                            _vm.onListTapped(data.items[index]);
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return DetailPage();
+                                },
+                              ),
+                            );
+                          }),
                       separatorBuilder: (context, index) => const Divider(
                         color: Colors.black,
                       ),
@@ -87,12 +97,12 @@ class _MainPageState extends ConsumerState<MainPage> {
                     error: (error, stack) => Text(
                       error.toString(),
                     ),
-                    loading: () => AspectRatio(
+                    loading: () => const AspectRatio(
                       aspectRatio: 1,
-                      child: const CircularProgressIndicator(),
+                      child: CircularProgressIndicator(),
                     ),
                   ),
-            )
+            ),
           ],
         ),
       ),
