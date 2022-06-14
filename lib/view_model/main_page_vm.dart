@@ -1,10 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'data/repository_data.dart';
-import 'main_logic.dart';
+import '../model/main_logic.dart';
+import '../data/repository_data.dart';
 
 final _logicProvider = Provider<Logic>((ref) => Logic());
 final _repositoryQueryProvider = StateProvider<String>((ref) => "");
+
 StateProvider<RepositoryDataItems> _navigationIndexProvider =
     StateProvider<RepositoryDataItems>(
   (ref) => const RepositoryDataItems(
@@ -34,12 +35,14 @@ AutoDisposeFutureProviderFamily<RepositoryData, String> _apiFamilyProvider =
 
 class MainPageVM {
   late final WidgetRef _ref;
+
   String get repositoryQuery => _ref.watch(_repositoryQueryProvider);
-  RepositoryDataItems get tappedRepository =>
-      _ref.watch(_navigationIndexProvider);
 
   AsyncValue<RepositoryData> repositoryDataWithFamily(String repositoryQuery) =>
       _ref.watch(_apiFamilyProvider(repositoryQuery));
+
+  RepositoryDataItems get tappedRepository =>
+      _ref.watch(_navigationIndexProvider);
 
   void setRef(WidgetRef ref) {
     _ref = ref;
@@ -52,7 +55,7 @@ class MainPageVM {
         .update((state) => repositoryQuery);
   }
 
-  // onTapで選択されたリストのindexを返す
+  // onTapで選択されたindexのデータを返す
   void onListTapped(RepositoryDataItems repositoryData) {
     _ref
         .read(_navigationIndexProvider.notifier)

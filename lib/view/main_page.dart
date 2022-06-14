@@ -1,7 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'main_page_vm.dart';
+import '../view_model/main_page_vm.dart';
 import 'next_page.dart';
 
 class MainPage extends ConsumerStatefulWidget {
@@ -25,10 +26,38 @@ class _MainPageState extends ConsumerState<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     final data = _vm.repositoryDataWithFamily(_vm.repositoryQuery);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            SizedBox(
+              height: size.height * 0.125,
+              child: const DrawerHeader(
+                padding: EdgeInsets.zero,
+                child: Text(
+                  '設定',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 23.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+            const ListTile(
+              title: Text("プライバシーポリシー"),
+            ),
+          ],
+        ),
       ),
       body: Center(
         child: Column(
@@ -64,7 +93,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                 return Text(
                     "Total Count: ${data.value!.total_count.toString()}");
               } else {
-                return Text('Non Repository');
+                return const Text('Non Repository');
               }
             })(),
             Expanded(
@@ -97,9 +126,8 @@ class _MainPageState extends ConsumerState<MainPage> {
                     error: (error, stack) => Text(
                       error.toString(),
                     ),
-                    loading: () => const AspectRatio(
-                      aspectRatio: 1,
-                      child: CircularProgressIndicator(),
+                    loading: () => const CupertinoActivityIndicator(
+                      radius: 30,
                     ),
                   ),
             ),
