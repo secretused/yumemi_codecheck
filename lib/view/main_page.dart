@@ -3,12 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../view_model/main_page_vm.dart';
+import '../view_model/theme_change.dart';
 import 'next_page.dart';
 
 class MainPage extends ConsumerStatefulWidget {
-  const MainPage({Key? key, required this.title}) : super(key: key);
+  const MainPage({
+    Key? key,
+    required this.title,
+    required this.isDarkMode,
+  }) : super(key: key);
 
   final String title;
+  final bool isDarkMode;
 
   @override
   ConsumerState<MainPage> createState() => _MainPageState();
@@ -16,7 +22,10 @@ class MainPage extends ConsumerStatefulWidget {
 
 class _MainPageState extends ConsumerState<MainPage> {
   final TextEditingController _queryTextController = TextEditingController();
+  static const String _sharedPreferencesKey = 'isDark';
+
   final MainPageVM _vm = MainPageVM();
+  final ThemeChangeVM _themevm = ThemeChangeVM();
 
   @override
   void initState() {
@@ -38,9 +47,9 @@ class _MainPageState extends ConsumerState<MainPage> {
           children: [
             SizedBox(
               height: size.height * 0.125,
-              child: const DrawerHeader(
+              child: DrawerHeader(
                 padding: EdgeInsets.zero,
-                child: Text(
+                child: const Text(
                   '設定',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -49,12 +58,25 @@ class _MainPageState extends ConsumerState<MainPage> {
                       fontWeight: FontWeight.bold),
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.blue,
-                ),
+                    color: widget.isDarkMode ? Colors.black12 : Colors.blue),
               ),
             ),
-            const ListTile(
-              title: Text("プライバシーポリシー"),
+            Container(
+              decoration: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(width: 0.5),
+                ),
+              ),
+              child: ListTile(
+                title: const Text("テーマを切り替える"),
+                onTap: () {
+                  final _isDarkMode = ref.watch(isDarkModeProvider) ?? false;
+                  ref
+                      .read(isDarkModeProvider.state)
+                      .update((state) => !_isDarkMode);
+                  _themevm.onThemaChaged(_sharedPreferencesKey, !_isDarkMode);
+                },
+              ),
             ),
           ],
         ),
@@ -72,7 +94,9 @@ class _MainPageState extends ConsumerState<MainPage> {
                     child: TextField(
                       controller: _queryTextController,
                       enabled: true,
-                      style: const TextStyle(color: Colors.black),
+                      style: TextStyle(
+                          color:
+                              widget.isDarkMode ? Colors.white : Colors.black),
                       obscureText: false,
                       maxLines: 1,
                     ),
@@ -90,8 +114,11 @@ class _MainPageState extends ConsumerState<MainPage> {
             ),
             (() {
               if (data.value != null) {
-                return Text(
-                    "Total Count: ${data.value!.total_count.toString()}");
+                return Padding(
+                  padding: EdgeInsets.only(bottom: size.height * 0.025),
+                  child: Text(
+                      "Total Count: ${data.value!.total_count.toString()}"),
+                );
               } else {
                 return const Text('Non Repository');
               }
