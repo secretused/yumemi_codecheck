@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+import '../services/admob.dart';
 import '../view_model/main_page_vm.dart';
 import '../view_model/theme_change.dart';
 import 'next_page.dart';
@@ -38,6 +40,7 @@ class _MainPageState extends ConsumerState<MainPage> {
     final Size size = MediaQuery.of(context).size;
     final data = _vm.repositoryDataWithFamily(_vm.repositoryQuery);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(widget.title),
       ),
@@ -158,6 +161,12 @@ class _MainPageState extends ConsumerState<MainPage> {
                     ),
                   ),
             ),
+            SizedBox(
+              width: size.width,
+              height: size.height * 0.08,
+              child: AdBanner(),
+            ),
+            SizedBox(height: size.height * 0.04),
           ],
         ),
       ),
