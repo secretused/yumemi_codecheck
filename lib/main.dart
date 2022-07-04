@@ -3,9 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'view/main_page.dart';
 import 'view_model/theme_change.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
   runApp(
     ProviderScope(
       child: MyApp(),
@@ -30,6 +32,7 @@ class MyApp extends ConsumerWidget {
         isDarkMode: _isDarkMode,
       ),
       darkTheme: ThemeData(brightness: Brightness.dark),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
